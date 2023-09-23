@@ -17,7 +17,9 @@ app.get("/", async (req, res) => {
     IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     UA: req.headers['user-agent'],
     uuid: uuidv4(),
-     date_time: new Date()
+     date_time: new Date(),
+     postData: req.body, // Store the POST data
+    getData: req.query // Store the GET data
   };
 // Insert the log into the 'logs' table
   
