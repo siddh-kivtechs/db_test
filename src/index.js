@@ -7,7 +7,9 @@ const PORT = process.env.PORT || 3000;
 
 // *** REMOVE ***
 app.get("/", (req, res) => {
-  res.send("<h2>It's Working!</h2>");
+  let data={};
+  
+  res.send(data);
 });
 
 
