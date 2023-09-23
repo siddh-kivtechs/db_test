@@ -1,12 +1,15 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const logs = []; // Array to store visitor logs
+const supabaseUrl = 'https://jdpqxxbxbebmbujrkrne.supabase.co';
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   const log = {
     latitude: req.headers['x-vercel-ip-latitude'],
     longitude: req.headers['x-vercel-ip-longitude'],
@@ -15,13 +18,27 @@ app.get("/", (req, res) => {
     uuid: uuidv4()
   };
 
-  logs.push(log); // Add the log to the array
+  const { data, error } = await supabase.from('logs').insert([log]); // Insert the log into the 'logs' table
 
-  res.send(log);
+  if (error) {
+    console.error('Error inserting log:', error);
+    res.status(500).send('Error inserting log');
+  } else {
+    console.log('Log inserted successfully:', data);
+    res.send(log);
+  }
 });
 
-app.get("/logs", (req, res) => {
-  res.send(logs);
+app.get("/logs", async (req, res) => {
+  const { data, error } = await supabase.from('logs').select(); // Retrieve all logs from the 'logs' table
+
+  if (error) {
+    console.error('Error retrieving logs:', error);
+    res.status(500).send('Error retrieving logs');
+  } else {
+    console.log('Logs retrieved successfully:', data);
+    res.send(data);
+  }
 });
 
 app.listen(PORT, () => {
