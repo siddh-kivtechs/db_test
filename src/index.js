@@ -20,7 +20,7 @@ app.get("/", async (req, res) => {
   };
 // Insert the log into the 'logs' table
   
-  const { data, error } = await supabase.from('logs').insert([log]); 
+  const { data, error } = await supabase.from('visitor').insert([log]); 
 
   if (error) {
     console.error('Error inserting log:', error);
