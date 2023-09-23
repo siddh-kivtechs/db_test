@@ -16,7 +16,8 @@ app.get("/", async (req, res) => {
     location: req.headers['x-vercel-ip-city'] + ',' + req.headers['x-vercel-ip-country-region'] + ',' + req.headers['x-vercel-ip-country'],
     IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     UA: req.headers['user-agent'],
-    uuid: uuidv4()
+    uuid: uuidv4(),
+     date_time: new Date()
   };
 // Insert the log into the 'logs' table
   
