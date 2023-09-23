@@ -8,7 +8,10 @@ const PORT = process.env.PORT || 3000;
 // *** REMOVE ***
 app.get("/", (req, res) => {
   let data={};
-  
+    data['latitude'] = req.headers['x-vercel-ip-latitude'];
+  data['longitude'] = req.headers['x-vercel-ip-longitude'];
+  data['location'] = req.headers['x-vercel-ip-city'] + ',' + req.headers['x-vercel-ip-country-region'] + ',' + req.headers['x-vercel-ip-country'];
+  data['ip_address'] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   res.send(data);
 });
 
