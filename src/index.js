@@ -35,7 +35,8 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/logs", async (req, res) => {
-  const { data, error } = await supabase.from('logs').select(); // Retrieve all logs from the 'logs' table
+  const { data, error } = await supabase.from('visitor').select();
+  // Retrieve all logs from the 'logs' table
 
   if (error) {
     console.error('Error retrieving logs:', error);
