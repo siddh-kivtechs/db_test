@@ -17,8 +17,8 @@ app.get("/", async (req, res) => {
     ip_address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     uuid: uuidv4()
   };
-
-  const { data, error } = await supabase.from('logs').insert([log]); // Insert the log into the 'logs' table
+// Insert the log into the 'logs' table
+  const { data, error } = await supabase.from('logs').insert([log]); 
 
   if (error) {
     console.error('Error inserting log:', error);
