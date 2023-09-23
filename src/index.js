@@ -19,6 +19,7 @@ app.get("/", async (req, res) => {
     uuid: uuidv4()
   };
 // Insert the log into the 'logs' table
+  
   const { data, error } = await supabase.from('logs').insert([log]); 
 
   if (error) {
