@@ -11,10 +11,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 app.get("/", async (req, res) => {
   const log = {
-    latitude: req.headers['x-vercel-ip-latitude'],
-    longitude: req.headers['x-vercel-ip-longitude'],
+    lat: req.headers['x-vercel-ip-latitude'],
+    lon: req.headers['x-vercel-ip-longitude'],
     location: req.headers['x-vercel-ip-city'] + ',' + req.headers['x-vercel-ip-country-region'] + ',' + req.headers['x-vercel-ip-country'],
-    ip_address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    UA: req.headers['user-agent'],
     uuid: uuidv4()
   };
 // Insert the log into the 'logs' table
